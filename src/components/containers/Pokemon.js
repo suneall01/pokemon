@@ -1,6 +1,17 @@
 import { connect } from 'react-redux';
-import pokemon from '../ui/Pokemon';
+import Pokemon from '../ui/Pokemon';
 
-const mapStateToProps = (name) => name;
+const mapStateToProps = (state) => ({
+  fetching: state.fetching,
+  pokemon: state.pokemon,
+});
 
-export default connect(mapStateToProps)(pokemon);
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     handleClick(name) {
+//       dispatch(getPokemon(name));
+//     },
+//   };
+// };
+
+export default connect(mapStateToProps)(Pokemon);

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 class PokemonView extends Component {
   render() {
-    const { id, name } = this.props;
+    const { id, name, onItemClick } = this.props;
     return (
       <div className="col-md-6">
         <div
@@ -19,7 +19,11 @@ class PokemonView extends Component {
               This is a wider card with supporting text below as a natural lead-in to additional
               content.
             </p>
-            <Link to={`/pokemon/${name}`} className="stretched-link">
+            <Link
+              to={`/pokemon/${name}`}
+              className="stretched-link"
+              onClick={() => onItemClick(name)}
+            >
               Continue reading
             </Link>
           </div>
@@ -55,5 +59,7 @@ class PokemonView extends Component {
 PokemonView.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
+  onItemClick: PropTypes.func.isRequired,
 };
+
 export default PokemonView;

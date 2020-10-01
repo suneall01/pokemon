@@ -4,7 +4,7 @@ const Carousel = () => (
   <div id="carousel_fade" className="carousel slide carousel-fade mb-5" data-ride="carousel">
     <div className="carousel-inner">
       <div className="carousel-item active">
-        <div className="d-flex bg-dark justify-content-center">
+        <div className="d-flex bg-dark justify-content-center p-4 p-md-5">
           <img
             src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/10001.png"
             alt="img1"

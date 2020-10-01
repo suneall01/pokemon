@@ -12,7 +12,7 @@ const consoleMessages = (store) => (next) => (action) => {
 
   const { fetchedPokemons, fetching, filter, pokemon } = store.getState();
   console.log(`allPokemons: ${fetchedPokemons.length}`);
-  console.log(`Pokemon: ${pokemon}`);
+  console.log(`Pokemon: ${JSON.stringify(pokemon)}`);
   console.log(`fetching: ${fetching}`);
   console.log(`filter: ${filter}`);
   console.groupEnd();

@@ -64,11 +64,12 @@ const Header = ({ title, filter }) => (
 );
 
 Header.defaultProps = {
+  title: '',
   filter: '',
 };
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   filter: PropTypes.string,
 };
 

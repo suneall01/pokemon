@@ -6,14 +6,14 @@ import DisplayItemNumber from './DisplayItemNumber';
 import Pagination from './Paginations';
 import PokemonView from './PokemonView';
 
-const PokemonList = ({ pokemons = [] }) => {
+const PokemonList = ({ pokemons = [], handleClick = (f) => f }) => {
   return (
     <div>
       <Carousel />
       <DisplayItemNumber />
       <div className="row mb-2">
         {pokemons.map((item) => (
-          <PokemonView key={item.id} {...item} />
+          <PokemonView key={item.id} {...item} onItemClick={handleClick} />
         ))}
       </div>
       <Pagination />

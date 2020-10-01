@@ -12,7 +12,7 @@ const routes = (
   <Router>
     <Switch>
       <Route exact path="/" component={App} />
-      <Route exact path="/pokemon/:id" render={renderPokemon} />
+      <Route exact path="/pokemon/:name" render={renderPokemon} />
       <Route path="*" component={Whoops404} />
     </Switch>
   </Router>
