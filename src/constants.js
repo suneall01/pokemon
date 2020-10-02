@@ -6,7 +6,6 @@ const Constants = {
   SUCCESS_FETCHING: 'SUCCESS_FETCHING',
   CANCEL_FETCHING: 'CANCEL_FETCHING',
   SET_FILTER: 'SET_FILTER',
-  DISPLAY_ITEM: 'DISPLAY_ITEM',
 };
 
 export default Constants;

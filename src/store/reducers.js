@@ -7,9 +7,6 @@ export const fetchedPokemons = (state = [], action) =>
 export const pokemon = (state = {}, action) =>
   action.type === Constants.FETCH_POKEMON ? action.payload : state;
 
-export const displayItem = (state = 50, action) =>
-  action.type === Constants.DISPLAY_ITEM ? action.payload : state;
-
 export const fetching = (state = false, action) => {
   switch (action.type) {
     case Constants.START_FETCHING:

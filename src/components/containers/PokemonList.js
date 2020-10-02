@@ -3,14 +3,12 @@ import PokemonList from '../ui/PokemonList';
 import { getPokemon } from '../../actions';
 
 const mapStateToProps = (state) => ({
-  pokemons: state.fetchedPokemons,
+  allPokemons: state.fetchedPokemons,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleClick(name) {
-      dispatch(getPokemon(name));
-    },
+    handleClick: (name) => dispatch(getPokemon(name)),
   };
 };
 

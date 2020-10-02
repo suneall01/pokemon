@@ -5,7 +5,8 @@ const cssnano = require('cssnano');
 module.exports = {
   entry: './src/index.jsx',
   output: {
-    path: path.resolve('public'),
+    path: path.resolve(__dirname, '/public'),
+    publicPath:'/',
     filename: 'bundle.js',
   },
   devServer: {

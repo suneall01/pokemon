@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 const LEFT_PAGE = 'LEFT';
 const RIGHT_PAGE = 'RIGHT';
 
+/**
+ * Helper method for creating a range of numbers
+ * range(1, 5) => [1, 2, 3, 4, 5]
+ */
 const range = (from, to, step = 1) => {
   let i = from;
   const range = [];
@@ -16,27 +20,21 @@ const range = (from, to, step = 1) => {
   return range;
 };
 
-class Paginations extends Component {
+class Pagination extends Component {
   constructor(props) {
     super(props);
-    // const { totalRecords = null, pageLimit = 20, pageNeighbours = 0 } = props;
+    const { totalRecords = null, pageLimit = 20, pageNeighbours = 0 } = props;
 
-    // this.pageLimit = typeof pageLimit === 'number' ? pageLimit : 20;
-    // this.totalRecords = typeof totalRecords === 'number' ? totalRecords : 0;
+    this.pageLimit = typeof pageLimit === 'number' ? pageLimit : 20;
+    this.totalRecords = typeof totalRecords === 'number' ? totalRecords : 0;
 
-    // // pageNeighbours can be: 0, 1 or 2
-    // this.pageNeighbours =
-    //   typeof pageNeighbours === 'number' ? Math.max(0, Math.min(pageNeighbours, 2)) : 0;
+    // pageNeighbours can be: 0, 1 or 2
+    this.pageNeighbours =
+      typeof pageNeighbours === 'number' ? Math.max(0, Math.min(pageNeighbours, 2)) : 0;
 
-    // this.totalPages = 0;
+    this.totalPages = 0;
 
-    this.state = {
-      currentPage: 1,
-      totalPages: 0,
-      totalRecords: 0,
-      pageLimit: 20,
-      pageNeighbours: 0,
-    };
+    this.state = { currentPage: 1 };
   }
 
   componentDidMount() {
@@ -45,20 +43,17 @@ class Paginations extends Component {
 
   gotoPage = (page) => {
     const { onPageChanged = (f) => f } = this.props;
-    const { totalPages, totalRecords, pageLimit } = this.state;
 
+    const currentPage = Math.max(0, Math.min(page, this.totalPages));
     this.fetchPageNumbers();
-    const currentPage = Math.max(0, Math.min(page, totalPages));
     const paginationData = {
       currentPage,
-      totalPages,
-      pageLimit,
-      totalRecords,
+      totalPages: this.totalPages,
+      pageLimit: this.pageLimit,
+      totalRecords: this.totalRecords,
     };
 
-    this.setState({ currentPage, totalPages, pageLimit, totalRecords }, () =>
-      onPageChanged(paginationData)
-    );
+    this.setState({ currentPage }, () => onPageChanged(paginationData));
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -82,13 +77,28 @@ class Paginations extends Component {
     this.gotoPage(this.state.currentPage + this.pageNeighbours * 2 + 1);
   };
 
+  /**
+   * Let's say we have 10 pages and we set pageNeighbours to 2
+   * Given that the current page is 6
+   * The pagination control will look like the following:
+   *
+   * (1) < {4 5} [6] {7 8} > (10)
+   *
+   * (x) => terminal pages: first and last page(always visible)
+   * [x] => represents current page
+   * {...x} => represents page neighbours
+   */
   fetchPageNumbers = () => {
-    const { currentPage, totalRecords, pageLimit, pageNeighbours } = this.props;
+    this.pageLimit = this.props.pageLimit;
+    const totalPages = (this.totalPages = Math.ceil(this.totalRecords / this.pageLimit));
+    const currentPage = this.props.currentPage;
+    const pageNeighbours = this.pageNeighbours;
 
-    const totalPages = Math.ceil(totalRecords / pageLimit);
-    this.setState({ currentPage, totalPages, pageLimit, totalRecords });
-
-    const totalNumbers = pageNeighbours * 2 + 3;
+    /**
+     * totalNumbers: the total page numbers to show on the control
+     * totalBlocks: totalNumbers + 2 to cover for the left(<) and right(>) controls
+     */
+    const totalNumbers = this.pageNeighbours * 2 + 3;
     const totalBlocks = totalNumbers + 2;
 
     if (totalPages > totalBlocks) {
@@ -136,10 +146,10 @@ class Paginations extends Component {
   };
 
   render() {
-    // if (!this.totalRecords || this.totalPages === 1) return null;
+    if (!this.totalRecords || this.totalPages === 1) return null;
 
-    const pages = this.fetchPageNumbers();
     const { currentPage } = this.state;
+    const pages = this.fetchPageNumbers();
 
     return (
       <Fragment>
@@ -191,11 +201,11 @@ class Paginations extends Component {
   }
 }
 
-Paginations.propTypes = {
+Pagination.propTypes = {
   totalRecords: PropTypes.number.isRequired,
   pageLimit: PropTypes.number,
   pageNeighbours: PropTypes.number,
   onPageChanged: PropTypes.func,
 };
 
-export default Paginations;
+export default Pagination;
