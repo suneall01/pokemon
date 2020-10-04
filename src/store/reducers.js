@@ -1,8 +1,16 @@
 import { combineReducers } from 'redux';
 import Constants from '../constants';
 
-export const fetchedPokemons = (state = [], action) =>
-  action.type === Constants.FETCHED_POKEMONS ? [...state, ...action.payload] : state;
+export const fetchedPokemons = (state = [], action) => {
+  switch (action.type) {
+    case Constants.FETCHED_POKEMONS:
+      return [...state, ...action.payload];
+    case Constants.CLEAR_POKEMONS:
+      return [];
+    default:
+      return state;
+  }
+};
 
 export const pokemon = (state = {}, action) =>
   action.type === Constants.FETCH_POKEMON ? action.payload : state;

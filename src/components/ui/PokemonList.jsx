@@ -13,6 +13,9 @@ class PokemonList extends Component {
     super(props);
     this.state = {
       allFetchedPokemons: Object.assign([], this.props.allPokemons),
+      region: Object.assign([], this.props.region),
+      habitat: Object.assign([], this.props.habitat),
+      gender: Object.assign([], this.props.gender),
       currentPokemons: [],
       currentPage: 1,
       totalPages: null,
@@ -21,10 +24,28 @@ class PokemonList extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (props.allPokemons.length > state.allFetchedPokemons.length) {
+    if (props.allPokemons.length != state.allFetchedPokemons.length) {
       return {
         allFetchedPokemons: [...props.allPokemons],
+        gender: [...props.gender],
+        region: [...props.region],
+        habitat: [...props.habitat],
       };
+    }
+    if (props.gender.length != state.gender.length) {
+      return {
+        gender: [...props.gender],
+        region: [...props.region],
+        habitat: [...props.habitat],
+      };
+    }
+    if (props.text != '') {
+      const result = state.allFetchedPokemons.filter((item) => {
+        item.name.match(props.text) == 0;
+      });
+      return{
+        allFetchedPokemons:[...result],
+      }
     }
     return null;
   }
@@ -34,6 +55,7 @@ class PokemonList extends Component {
   //     this.setState({ allFetchedPokemons: [...nextProps.allPokemons] });
   //   }
   // }
+  onTextChange = (text) => {};
 
   onPageChanged = (data) => {
     const { allFetchedPokemons } = this.state;
@@ -54,9 +76,18 @@ class PokemonList extends Component {
 
     this.setState({ currentPokemons, pageLimit });
   };
+
   render() {
-    const { handleClick = (f) => f } = this.props;
-    const { allFetchedPokemons, currentPokemons, pageLimit, currentPage } = this.state;
+    const {
+      allFetchedPokemons,
+      currentPokemons,
+      pageLimit,
+      currentPage,
+      region,
+      gender,
+      habitat,
+    } = this.state;
+    const { handleClick = (f) => f, onFilterChange = (f) => f } = this.props;
 
     const totalPokemons = allFetchedPokemons.length;
     if (totalPokemons === 0) return null;
@@ -73,7 +104,12 @@ class PokemonList extends Component {
 
             <DisplayItemNumber pageLimit={pageLimit} onLimitChanged={this.onLimitChanged} />
           </div>
-          <Filters />
+          <Filters
+            gender={gender}
+            region={region}
+            habitat={habitat}
+            onFilterClick={onFilterChange}
+          />
           <div className="row mb-2 justify-content-between">
             {currentPokemons.map((item) => (
               <PokemonView key={item.id} {...item} onItemClick={handleClick} />

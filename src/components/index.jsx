@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import $ from 'jquery';
@@ -9,19 +9,28 @@ import PokemonList from './containers/PokemonList';
 import '../stylesheets/index.scss';
 import { Sidebar } from './ui/Sidebar';
 
-export const App = () => (
-  <div className="App">
-    <Header title="Pokemons" />
-    <div className="container-fluid">
-      <div className="row">
-        <Sidebar />
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-0">
-          <PokemonList />
-        </main>
+export const App = () => {
+  const [text, setText] = useState('');
+
+  const onTextChanged = (e) => {
+    const text = e.target.value;
+    setText(text);
+  };
+
+  return (
+    <div className="App">
+      <Header title="Pokemons" onTextChanged={onTextChanged} />
+      <div className="container-fluid">
+        <div className="row">
+          <Sidebar />
+          <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-md-0">
+            <PokemonList text={text} />
+          </main>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export const Whoops404 = ({ location }) => (
   <div className="whoops-404">
