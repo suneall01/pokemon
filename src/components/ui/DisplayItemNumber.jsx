@@ -30,7 +30,7 @@ class DisplayItemNumber extends Component {
     const numbers = [10, 20, 30, 50, 100];
     const { pageLimit } = this.state;
     return (
-      <div>
+      <div className="col-md-5">
         <nav aria-label="Page navigation">
           <ul className="pagination pagination-lg justify-content-end">
             {numbers.map((limit, index) => (

@@ -20,12 +20,20 @@ export const fetching = (state = false, action) => {
   }
 };
 
-export const filter = (state = '', action) =>
-  action.type === Constants.SET_FILTER ? action.payload : state;
+export const habitat = (state = [], action) =>
+  action.type === Constants.HABITAT ? [...state, ...action.payload] : state;
+
+export const region = (state = [], action) =>
+  action.type === Constants.REGION ? [...state, ...action.payload] : state;
+
+export const gender = (state = [], action) =>
+  action.type === Constants.GENDER ? [...state, ...action.payload] : state;
 
 export default combineReducers({
   fetching,
-  filter,
+  habitat,
+  gender,
+  region,
   pokemon,
   fetchedPokemons,
 });

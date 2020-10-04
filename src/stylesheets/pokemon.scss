@@ -1,17 +1,9 @@
 @import 'globals';
 
-img {
-    height: 300px;
+.table {
+  width: 50%;
 }
 
-.pokemon {
-    margin-bottom: 4rem;
-  }
-  .pokemon-heading {
-    margin-bottom: .25rem;
-    font-size: 2.5rem;
-  }
-  .blog-post-meta {
-    margin-bottom: 1.25rem;
-    color: #999;
-  }
+.tab-content {
+  padding: 20px 10px;
+}

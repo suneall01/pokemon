@@ -7,7 +7,7 @@ class PokemonView extends Component {
   render() {
     const { id, name, onItemClick } = this.props;
     return (
-      <div className="col-md-6">
+      <div className="col-md-5">
         <div
           key={id}
           className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
@@ -30,23 +30,22 @@ class PokemonView extends Component {
           <div className="col-auto d-none d-lg-block">
             <svg
               className="bd-placeholder-img"
-              width="200"
-              height="250"
+              width="150px"
+              height="230px"
               xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="xMidYMid meet"
+              preserveAspectRatio="xMidYMid slice"
               focusable="false"
               role="img"
               aria-label="Placeholder: Thumbnail"
             >
-              <title>Placeholder</title>
-              <rect width="100%" height="100%" fill="#55595c" />
+              {/* <title>Placeholder</title>
+              <rect width="100%" height="100%" fill="#55595c" /> */}
               <image
                 href={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
                 alt="img1"
                 x="0"
                 y="0"
                 fill="#eceeef"
-                dy=".3em"
               />
             </svg>
           </div>

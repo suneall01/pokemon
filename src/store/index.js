@@ -10,11 +10,13 @@ const consoleMessages = (store) => (next) => (action) => {
 
   const result = next(action);
 
-  const { fetchedPokemons, fetching, filter, pokemon } = store.getState();
+  const { fetchedPokemons, fetching, pokemon, region, habitat, gender } = store.getState();
   console.log(`allPokemons: ${fetchedPokemons.length}`);
   console.log(`Pokemon: ${JSON.stringify(pokemon)}`);
+  console.log(`region: ${JSON.stringify(region)}`);
+  console.log(`habitat: ${JSON.stringify(habitat)}`);
+  console.log(`gender: ${JSON.stringify(gender)}`);
   console.log(`fetching: ${fetching}`);
-  console.log(`filter: ${filter}`);
   console.groupEnd();
 
   return result;

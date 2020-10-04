@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import Pokemon from '../ui/Pokemon';
 
 const mapStateToProps = (state) => ({
-  fetching: state.fetching,
   pokemon: state.pokemon,
 });
 

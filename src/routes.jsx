@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { App, Whoops404 } from './components';
 import Pokemon from './components/containers/Pokemon';
+import Filters from './components/ui/Filters';
 
 const renderPokemon = (props) => {
   const name = props.location.pathname.replace('/pokemon/', '');

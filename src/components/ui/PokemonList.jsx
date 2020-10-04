@@ -2,10 +2,11 @@
 import '../../stylesheets/pokemonlist.scss';
 import Carousel from './Carousel';
 import DisplayItemNumber from './DisplayItemNumber';
-import Paginations from './Pagination';
+import Pagination from './Pagination';
 import PokemonView from './PokemonView';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Filters from './Filters';
 
 class PokemonList extends Component {
   constructor(props) {
@@ -18,11 +19,21 @@ class PokemonList extends Component {
       pageLimit: 20,
     };
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.allPokemons.length < nextProps.allPokemons.length) {
-      this.setState({ allFetchedPokemons: [...nextProps.allPokemons] });
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.allPokemons.length > state.allFetchedPokemons.length) {
+      return {
+        allFetchedPokemons: [...props.allPokemons],
+      };
     }
+    return null;
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.allPokemons.length < nextProps.allPokemons.length) {
+  //     this.setState({ allFetchedPokemons: [...nextProps.allPokemons] });
+  //   }
+  // }
 
   onPageChanged = (data) => {
     const { allFetchedPokemons } = this.state;
@@ -42,7 +53,7 @@ class PokemonList extends Component {
     const currentPokemons = allFetchedPokemons.slice(offset, offset + pageLimit);
 
     this.setState({ currentPokemons, pageLimit });
-  }
+  };
   render() {
     const { handleClick = (f) => f } = this.props;
     const { allFetchedPokemons, currentPokemons, pageLimit, currentPage } = this.state;
@@ -52,21 +63,29 @@ class PokemonList extends Component {
     return (
       <div>
         <Carousel />
-        <DisplayItemNumber
-          pageLimit={pageLimit}
-          onLimitChanged={this.onLimitChanged}
-        />
-        <div className="row mb-2">
-          {currentPokemons.map((item) => (
-            <PokemonView key={item.id} {...item} onItemClick={handleClick} />
-          ))}
+        <div className="px-5">
+          <div className="row justify-content-between">
+            <div className="col-md-5 align-self-center">
+              <a className="nav-link px-2" data-toggle="collapse" href="#collapseableform">
+                Refine
+              </a>
+            </div>
+
+            <DisplayItemNumber pageLimit={pageLimit} onLimitChanged={this.onLimitChanged} />
+          </div>
+          <Filters />
+          <div className="row mb-2 justify-content-between">
+            {currentPokemons.map((item) => (
+              <PokemonView key={item.id} {...item} onItemClick={handleClick} />
+            ))}
+          </div>
+          <Pagination
+            totalRecords={totalPokemons}
+            pageLimit={pageLimit}
+            currentPage={currentPage}
+            onPageChanged={this.onPageChanged}
+          />
         </div>
-        <Paginations
-          totalRecords={totalPokemons}
-          pageLimit={pageLimit}
-          currentPage={currentPage}
-          onPageChanged={this.onPageChanged}
-        />
       </div>
     );
   }
