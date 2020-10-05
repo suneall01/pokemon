@@ -24,12 +24,18 @@ class PokemonList extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (props.allPokemons.length != state.allFetchedPokemons.length) {
+    
+    if (props.text.length == 0 && props.allPokemons.length != state.allFetchedPokemons.length) {
+      console.log("all");
       return {
         allFetchedPokemons: [...props.allPokemons],
-        gender: [...props.gender],
-        region: [...props.region],
-        habitat: [...props.habitat],
+      };
+    }
+    if (props.text.length > 0) {
+      console.log("text");
+      return {
+        allFetchedPokemons: [...props.allPokemons],
+        currentPokemons: [],
       };
     }
     if (props.gender.length != state.gender.length) {
@@ -39,23 +45,8 @@ class PokemonList extends Component {
         habitat: [...props.habitat],
       };
     }
-    if (props.text != '') {
-      const result = state.allFetchedPokemons.filter((item) => {
-        item.name.match(props.text) == 0;
-      });
-      return{
-        allFetchedPokemons:[...result],
-      }
-    }
     return null;
   }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.allPokemons.length < nextProps.allPokemons.length) {
-  //     this.setState({ allFetchedPokemons: [...nextProps.allPokemons] });
-  //   }
-  // }
-  onTextChange = (text) => {};
 
   onPageChanged = (data) => {
     const { allFetchedPokemons } = this.state;

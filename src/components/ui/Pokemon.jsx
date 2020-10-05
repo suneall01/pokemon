@@ -89,8 +89,8 @@ class Pokemon extends Component {
     console.log(sprites);
     return (
       <div className="container-fluid">
-        <Header title={name} filter="invisible" />
-        <div className="card mb-2">
+        {/* <Header title={name} filter="invisible" /> */}
+        <div className="card m-2">
           <div className="card-body m-2">
             <div className="row featurette pb-4">
               <div className="col-md-7 order-md-2 table-responsive">

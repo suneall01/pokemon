@@ -7,6 +7,9 @@ export const fetchedPokemons = (state = [], action) => {
       return [...state, ...action.payload];
     case Constants.CLEAR_POKEMONS:
       return [];
+    case Constants.FILTER_POKEMONS:
+      const re = new RegExp(action.payload);
+      return state.filter((item) => re.exec(item.name) && re.exec(item.name).index == 0);
     default:
       return state;
   }

@@ -4,8 +4,14 @@ import PropTypes from 'prop-types';
 import '../../stylesheets/header.scss';
 
 class Header extends Component {
+  handleTextChange = (e) => {
+    const { onTextChange, onTextChanged } = this.props;
+    onTextChange(e.target.value);
+    onTextChanged(e.target.value);
+  };
+
   render() {
-    const { title, onTextChanged} = this.props;
+    const { title } = this.props;
     return (
       <nav className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <a className="navbar-brand col-md-3 col-lg-2 mr-0 px-3 text-white text-uppercase" href="#">
@@ -27,8 +33,7 @@ class Header extends Component {
           type="text"
           placeholder="Search"
           aria-label="Search"
-          onChange={onTextChanged}
-          onFocus={onTextChanged}
+          onChange={(e) => this.handleTextChange(e)}
         />
       </nav>
     );

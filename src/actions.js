@@ -1,14 +1,9 @@
 import axios from 'axios';
 import C from './constants';
 
-export const setFilter = (filter) => ({
-  type: C.SET_FILTER,
-  payload: filter,
-});
-
-export const setDisplayItem = (size) => ({
-  type: C.DISPLAY_ITEM,
-  payload: size,
+export const filterPokemons = (text) => ({
+  type: C.FILTER_POKEMONS,
+  payload: text,
 });
 
 export const getPokemons = () => async (dispatch) => {
@@ -28,6 +23,7 @@ export const getPokemons = () => async (dispatch) => {
     });
     // console.log(data);
     dispatch({ type: C.SUCCESS_FETCHING });
+    dispatch({ type: C.CLEAR_POKEMONS });
     dispatch({
       type: C.FETCHED_POKEMONS,
       payload: data,
