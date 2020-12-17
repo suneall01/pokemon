@@ -35,7 +35,7 @@ class PokemonList extends Component {
       console.log("text");
       return {
         allFetchedPokemons: [...props.allPokemons],
-        currentPokemons: [],
+        currentPokemons: [...props.allPokemons],
       };
     }
     if (props.gender.length != state.gender.length) {
