@@ -1,17 +1,17 @@
 const path = require('path');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const cssnano = require('cssnano');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/index.jsx',
   output: {
-    path: path.resolve(__dirname, './build'),
+    path: path.resolve(__dirname, 'public'),
     publicPath:'/',
-    filename: '[name].bundle.js',
+    filename: 'bundle.js',
   },
+  mode: 'development',
   devServer: {
-    contentBase: path.resolve(__dirname, './build'),
+    contentBase: path.resolve(__dirname, './public'),
     inline: true,
     port: 3000,
   },
@@ -42,6 +42,5 @@ module.exports = {
       cssProcessorOptions: { discardComments: { removeAll: true } },
       canPrint: true,
     }),
-    new HtmlWebpackPlugin({filename: 'index.html'})
   ],
 };
